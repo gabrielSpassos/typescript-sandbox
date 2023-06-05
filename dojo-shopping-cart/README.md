@@ -50,3 +50,17 @@ Your task is to write a program with the following functionality:
 - All product quantities are positive integers.
 - All product prices are positive numbers, to two decimal places.
 - All discounts are either a percentage off (0-100) or a buy-one-get-one-free deal.
+
+## Usage
+
+* Install dependencies 
+
+```shell
+npm install
+```
+
+* Run unit tests
+
+```shell
+npm test
+```
