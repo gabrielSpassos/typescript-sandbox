@@ -1,4 +1,4 @@
-name: Test Dojo Shooping Cart GitHub Actions
+name: Test Dojo Shopping Cart GitHub Actions
 on: push
 
 jobs:
