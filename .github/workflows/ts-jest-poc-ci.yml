@@ -1,23 +1,23 @@
-name: Demo GitHub Actions
+name: Test TypeScript with Jest POC GitHub Actions
 on:
   push:
-  pull_request:
-    types: [opened, edited, reopened]
+    paths:
+      - './test-jest-poc/**'
 
 jobs:
   test-job:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Use Node 17.x
+    - name: Setup Node 18.x
       uses: actions/setup-node@v3
       with:
-        node-version: '17.x'
+        node-version: 18
 
     - name: Install dependencies
       run: npm ci
 
-    - name: Test
+    - name: Execute unit tests
       run: npm test
