@@ -2,7 +2,7 @@ name: Test TypeScript with Jest POC GitHub Actions
 on:
   push:
     paths:
-      - './test-jest-poc/**'
+      - ts-jest-poc/**
 
 jobs:
   test-job:
