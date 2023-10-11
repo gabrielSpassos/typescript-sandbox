@@ -1,0 +1,23 @@
+name: Test Dojo Shooping Cart GitHub Actions
+on: push
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./dojo-shopping-cart
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: cd dojo-shopping-cart && npm ci
+
+      - name: Execute unit tests
+        run: cd dojo-shopping-cart && npm test
