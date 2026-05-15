@@ -1,18 +1,57 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Button snapshot contract should match component snapshot 1`] = `
+exports[`Button snapshot contract should match danger snapshot 1`] = `
 .c0 {
-  background-color: #0055FF;
-  color: #FFFFFF;
   border: none;
   padding: 12px 20px;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
+  background-color: #D32F2F;
+  color: #FFFFFF;
 }
 
 <button
   class="c0"
+  variant="danger"
+>
+  Delete
+</button>
+`;
+
+exports[`Button snapshot contract should match dark mode snapshot 1`] = `
+.c0 {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #0055FF;
+  color: #FFFFFF;
+}
+
+<button
+  class="c0"
+  variant="primary"
+>
+  Save
+</button>
+`;
+
+exports[`Button snapshot contract should match primary snapshot 1`] = `
+.c0 {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #0055FF;
+  color: #FFFFFF;
+}
+
+<button
+  class="c0"
+  variant="primary"
 >
   Save
 </button>
