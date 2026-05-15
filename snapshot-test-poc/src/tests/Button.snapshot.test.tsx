@@ -1,5 +1,6 @@
 import React from "react";
-import renderer from "react-test-renderer";
+
+import { render, screen } from "@testing-library/react";
 
 import { Button } from "../components/Button";
 import { colors } from "../design-system/colors";
@@ -8,22 +9,23 @@ describe("Button snapshot contract", () => {
 
   it("should match component snapshot", () => {
 
-    const tree = renderer
-      .create(<Button>Save</Button>)
-      .toJSON();
+    const { container } = render(
+      <Button>Save</Button>
+    );
 
-    expect(tree).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it("should respect design system blue color", () => {
 
-    const tree = renderer
-      .create(<Button>Save</Button>)
-      .toJSON();
+    render(<Button>Save</Button>);
 
-    expect(tree).toHaveStyleRule(
-      "background-color",
-      colors.primaryBlue
-    );
+    const button = screen.getByRole("button", {
+      name: "Save"
+    });
+
+    expect(button).toHaveStyle(`
+      background-color: ${colors.primaryBlue};
+    `);
   });
 });

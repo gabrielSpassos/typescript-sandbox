@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Button snapshot contract should match component snapshot 1`] = `
+.c0 {
+  background-color: #0055FF;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+<button
+  class="c0"
+>
+  Save
+</button>
+`;
