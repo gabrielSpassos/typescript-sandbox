@@ -1,7 +1,7 @@
 {
   "name": "playwright-poc",
   "version": "1.0.0",
-  "description": "",
+  "description": "```bash npm init -y npm init playwright@latest ```",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
@@ -11,5 +11,13 @@
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "playwright": "^1.60.0",
+    "playwright-core": "^1.60.0",
+    "undici-types": "^7.24.6"
   }
 }
