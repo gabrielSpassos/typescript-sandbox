@@ -12,4 +12,5 @@ npx playwright test
 npx playwright test --ui
 npx playwright test --project=chromium
 npx playwright show-report
+npx playwright test tests/google.spec.ts
 ```
