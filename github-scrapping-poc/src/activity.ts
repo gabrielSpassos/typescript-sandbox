@@ -12,7 +12,7 @@ export type ProjectSummary = {
 
 export type ActivitySummary = {
   username: string;
-  since: Date;
+  since: string;
   totalCommits: number;
   repositories: RepositorySummary[];
   projects: ProjectSummary[];
@@ -23,10 +23,8 @@ export async function getActivitySummary(
   username: string,
   days: number
 ): Promise<ActivitySummary> {
-  const since = daysAgo(days);
-  const commits = (await client.searchCommits(username, since)).filter((commit) => {
-    return new Date(commit.commit.author.date) >= since;
-  });
+  const since = toDateOnly(daysAgo(days));
+  const commits = await client.searchCommits(username, since);
   const repositories = summarizeRepositories(commits);
   const projects = await summarizeTouchedProjects(client, commits);
 
@@ -146,4 +144,8 @@ function daysAgo(days: number): Date {
   const date = new Date();
   date.setUTCDate(date.getUTCDate() - days);
   return date;
+}
+
+function toDateOnly(date: Date): string {
+  return date.toISOString().slice(0, 10);
 }

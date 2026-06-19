@@ -50,8 +50,8 @@ export class GitHubClient {
     this.token = options.token;
   }
 
-  async searchCommits(username: string, since: Date): Promise<CommitSearchItem[]> {
-    const query = `author:${username} author-date:>=${toDateOnly(since)}`;
+  async searchCommits(username: string, since: string): Promise<CommitSearchItem[]> {
+    const query = `author:${username} author-date:>=${since}`;
     const items: CommitSearchItem[] = [];
 
     for (let page = 1; page <= 10; page += 1) {
@@ -104,8 +104,4 @@ export class GitHubClient {
 
     return response.json() as Promise<T>;
   }
-}
-
-function toDateOnly(date: Date): string {
-  return date.toISOString().slice(0, 10);
 }

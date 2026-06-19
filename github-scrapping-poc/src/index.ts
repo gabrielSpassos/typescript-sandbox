@@ -13,7 +13,7 @@ async function main(): Promise<void> {
 }
 
 function printSummary(summary: Awaited<ReturnType<typeof getActivitySummary>>): void {
-  console.log(`GitHub activity for ${summary.username} since ${summary.since.toISOString()}`);
+  console.log(`GitHub activity for ${summary.username} since ${summary.since}`);
   console.log("");
   console.log(`Commits found: ${summary.totalCommits}`);
   console.log("");

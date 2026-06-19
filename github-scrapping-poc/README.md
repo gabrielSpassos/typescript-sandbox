@@ -43,7 +43,7 @@ npm start -- --days 14 --username your_github_username
 ## Output
 
 ```txt
-GitHub activity for gabrielSpassos since 2026-06-11T12:26:35.267Z
+GitHub activity for gabrielSpassos since 2026-06-11
 
 Commits found: 39
 
