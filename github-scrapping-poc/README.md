@@ -52,6 +52,6 @@ Repositories:
 - owner/web: 3 commits
 
 Touched projects:
-- gabrielSpassos/java-sandbox/spring-cassandra-poc: 28 files
-- codegik/team-red/engineering/segment-tree: 2 files
+- https://github.com/gabrielSpassos/java-sandbox/tree/main/spring-cassandra-poc: 28 files
+- https://github.com/codegik/team-red/tree/main/engineering/segment-tree: 2 files
 ```

@@ -6,6 +6,7 @@ export type Repository = {
   name: string;
   fork: boolean;
   archived: boolean;
+  default_branch?: string;
 };
 
 export type CommitSearchItem = {
@@ -31,6 +32,10 @@ export type CommitDetail = {
   files?: Array<{
     filename: string;
   }>;
+};
+
+export type RepositoryDetail = Repository & {
+  default_branch: string;
 };
 
 type GitHubClientOptions = {
@@ -70,6 +75,10 @@ export class GitHubClient {
 
   async getCommit(owner: string, repo: string, sha: string): Promise<CommitDetail> {
     return this.get<CommitDetail>(`/repos/${owner}/${repo}/commits/${sha}`);
+  }
+
+  async getRepository(owner: string, repo: string): Promise<RepositoryDetail> {
+    return this.get<RepositoryDetail>(`/repos/${owner}/${repo}`);
   }
 
   private async get<T>(path: string, query?: Record<string, string>): Promise<T> {

@@ -6,7 +6,7 @@ export type RepositorySummary = {
 };
 
 export type ProjectSummary = {
-  path: string;
+  url: string;
   files: number;
 };
 
@@ -60,8 +60,10 @@ async function summarizeTouchedProjects(
   commits: CommitSearchItem[]
 ): Promise<ProjectSummary[]> {
   const counts = new Map<string, number>();
+  const defaultBranches = new Map<string, string>();
 
   for (const commit of commits) {
+    const defaultBranch = await getDefaultBranch(client, commit, defaultBranches);
     const detail = await client.getCommit(
       commit.repository.owner.login,
       commit.repository.name,
@@ -69,32 +71,75 @@ async function summarizeTouchedProjects(
     );
 
     for (const file of detail.files ?? []) {
-      const projectPath = getProjectPath(commit.repository.full_name, file.filename);
-      counts.set(projectPath, (counts.get(projectPath) ?? 0) + 1);
+      const projectPath = getProjectPath(commit.repository.name, file.filename);
+      const projectUrl = toGitHubFolderUrl(
+        commit.repository.full_name,
+        defaultBranch,
+        projectPath
+      );
+      counts.set(projectUrl, (counts.get(projectUrl) ?? 0) + 1);
     }
   }
 
   return [...counts.entries()]
-    .map(([path, files]) => ({
-      path,
+    .map(([url, files]) => ({
+      url,
       files
     }))
-    .sort((left, right) => right.files - left.files || left.path.localeCompare(right.path));
+    .sort((left, right) => right.files - left.files || left.url.localeCompare(right.url));
 }
 
-function getProjectPath(repositoryFullName: string, filename: string): string {
-  const repositoryName = repositoryFullName.split("/").at(-1) ?? repositoryFullName;
+async function getDefaultBranch(
+  client: GitHubClient,
+  commit: CommitSearchItem,
+  defaultBranches: Map<string, string>
+): Promise<string> {
+  const cached = defaultBranches.get(commit.repository.full_name);
+
+  if (cached) {
+    return cached;
+  }
+
+  const branch = commit.repository.default_branch ?? await fetchDefaultBranch(client, commit);
+  defaultBranches.set(commit.repository.full_name, branch);
+  return branch;
+}
+
+async function fetchDefaultBranch(client: GitHubClient, commit: CommitSearchItem): Promise<string> {
+  const repository = await client.getRepository(
+    commit.repository.owner.login,
+    commit.repository.name
+  );
+
+  return repository.default_branch;
+}
+
+function getProjectPath(repositoryName: string, filename: string): string {
   const parts = filename.split("/");
 
   if (parts.length === 0 || parts[0] === "") {
-    return repositoryFullName;
+    return "";
   }
 
   if (repositoryName.endsWith("-sandbox")) {
-    return `${repositoryFullName}/${parts[0]}`;
+    return parts[0];
   }
 
-  return `${repositoryFullName}/${parts.slice(0, 2).join("/")}`;
+  return parts.slice(0, 2).join("/");
+}
+
+function toGitHubFolderUrl(repositoryFullName: string, branch: string, projectPath: string): string {
+  if (!projectPath) {
+    return `https://github.com/${repositoryFullName}`;
+  }
+
+  const encodedBranch = encodeURIComponent(branch);
+  const encodedProjectPath = projectPath
+    .split("/")
+    .map((pathPart) => encodeURIComponent(pathPart))
+    .join("/");
+
+  return `https://github.com/${repositoryFullName}/tree/${encodedBranch}/${encodedProjectPath}`;
 }
 
 function daysAgo(days: number): Date {

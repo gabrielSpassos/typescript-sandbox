@@ -33,7 +33,7 @@ function printSummary(summary: Awaited<ReturnType<typeof getActivitySummary>>): 
     console.log("- No touched projects found.");
   } else {
     for (const project of summary.projects) {
-      console.log(`- ${project.path}: ${project.files} ${pluralize(project.files, "file")}`);
+      console.log(`- ${project.url}: ${project.files} ${pluralize(project.files, "file")}`);
     }
   }
 }
