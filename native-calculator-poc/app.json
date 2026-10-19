@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "Calculadora",
+    "slug": "native-calculator-poc",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "com.poc.nativecalculator"
+    }
+  }
+}
