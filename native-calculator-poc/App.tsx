@@ -11,16 +11,9 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { calculate, parseNumber } from './src/calculator';
 
 type Operation = 'add' | 'subtract';
-
-function parseNumber(value: string): number | null {
-  const normalized = value.trim().replace(',', '.');
-  if (!normalized) return null;
-
-  const parsed = Number(normalized);
-  return Number.isFinite(parsed) ? parsed : null;
-}
 
 export default function App() {
   const [firstValue, setFirstValue] = useState('');
@@ -29,7 +22,7 @@ export default function App() {
   const [result, setResult] = useState<number | null>(null);
   const [error, setError] = useState('');
 
-  function calculate() {
+  function handleCalculate() {
     Keyboard.dismiss();
     const first = parseNumber(firstValue);
     const second = parseNumber(secondValue);
@@ -41,7 +34,7 @@ export default function App() {
     }
 
     setError('');
-    setResult(operation === 'add' ? first + second : first - second);
+    setResult(calculate(first, second, operation));
   }
 
   function updateOperation(nextOperation: Operation) {
@@ -110,10 +103,10 @@ export default function App() {
               placeholder="Ex.: 5"
               placeholderTextColor="#a3acbb"
               returnKeyType="done"
-              onSubmitEditing={calculate}
+              onSubmitEditing={handleCalculate}
             />
 
-            <Pressable accessibilityRole="button" onPress={calculate} style={styles.calculateButton}>
+            <Pressable accessibilityRole="button" onPress={handleCalculate} style={styles.calculateButton}>
               <Text style={styles.calculateButtonText}>Calcular</Text>
               <Text style={styles.calculateArrow}>→</Text>
             </Pressable>
