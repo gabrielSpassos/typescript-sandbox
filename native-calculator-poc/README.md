@@ -1,24 +1,24 @@
-# Calculadora (POC)
+# Calculator (POC)
 
-Aplicativo mobile em React Native com TypeScript, preparado para rodar primeiro no Android. A interface oferece soma e subtração de dois números, aceita vírgula ou ponto decimal e mostra uma mensagem quando os valores não são válidos.
+React Native mobile app with TypeScript, prepared to run first on Android. The interface supports addition and subtraction of two numbers, accepts comma or decimal point input, and shows a message when the values are invalid.
 
-## Requisitos
+## Requirements
 
 - Node.js LTS
-- Android Studio com um emulador configurado **ou** um dispositivo Android com Expo Go instalado
+- Android Studio with a configured emulator **or** an Android device with Expo Go installed
 
-## Executar
+## Run
 
 ```sh
 npm install
 npx expo start
 ```
 
-No terminal do Expo, pressione `a` para abrir no emulador Android. Para usar um aparelho físico, escaneie o QR code com o Expo Go; computador e aparelho precisam estar na mesma rede.
+In the Expo terminal, press `a` to open it in the Android emulator. To use a physical device, scan the QR code with Expo Go; the computer and device must be on the same network.
 
-Também é possível usar `npm run android` para iniciar o servidor e abrir o emulador Android.
+You can also use `npm run android` to start the server and open the Android emulator.
 
-## Testes unitários
+## Unit tests
 
 ```sh
 npm test
