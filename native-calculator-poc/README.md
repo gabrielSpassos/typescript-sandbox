@@ -1,4 +1,4 @@
-# Calculator (POC)
+# Reactive Native Calculator (POC)
 
 React Native mobile app with TypeScript, prepared to run first on Android. The interface supports addition and subtraction of two numbers, accepts comma or decimal point input, and shows a message when the values are invalid.
 
